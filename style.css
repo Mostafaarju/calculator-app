@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100&display=swap');
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: whitesmoke;
+  background: linear-gradient(180deg, #332a28, #645f58);
+  font-family: 'IBM Plex Sans', sans-serif;
+  overflow: hidden;
+}
+.calculator {
+  width: 400px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  box-shadow: 0 5px 30px -5px rgba(0, 0, 0, 0.6);
+}
+
+.calculator-display {
+  color: white;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* align-items: end; */
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  /* overflow: hidden; */
+}
+.calculator-title {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.calculator-selected {
+  color: #5fabe0;
+  margin: 0 0 -26px 0;
+  padding: 20px 20px 0 0;
+}
+.calculator-mdiv {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  min-height: 100px;
+}
+.calculator-middle {
+  overflow-x: auto;
+  /* width: 342px; */
+}
+.calculator-display h1 {
+  margin: 0;
+  padding: 25px;
+  font-size: 30px;
+  font-weight: 100;
+  /* overflow-x: auto; */
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(206, 23, 23);
+}
+
+.backSpaceIcon {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #5fabe0;
+  margin: 0;
+  padding: 0;
+}
+.backSpaceIcon p {
+  margin: -15px 20px 10px 0;
+  padding: 0;
+  position: relative;
+}
+.backSpaceIcon p i {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1.3em;
+  position: absolute;
+  top: -12px;
+  right: 0;
+}
+
+/* Buttons */
+
+button {
+  min-height: 50px;
+  font-size: 25px;
+  font-weight: 100;
+  font-family: 'IBM Plex Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  background: #3f3634;
+  color: whitesmoke;
+}
+button:hover {
+  filter: brightness(115%);
+  -webkit-filter: brightness(115%);
+}
+button:active {
+  transform: translateY(1px);
+  -webkit-transform: translateY(1px);
+  -moz-transform: translateY(1px);
+  -ms-transform: translateY(1px);
+  -o-transform: translateY(1px);
+}
+button:focus {
+  outline: none;
+}
+.operator1 {
+  background: linear-gradient(
+    180deg,
+    rgba(89, 174, 227, 1) 0%,
+    rgba(89, 174, 227, 1) 100%
+  );
+}
+.operator2 {
+  background: linear-gradient(
+    180deg,
+    rgba(89, 174, 227, 1) 0%,
+    rgba(89, 174, 227, 1) 100%
+  );
+}
+.operator3 {
+  background: rgb(90, 175, 227);
+  background: linear-gradient(
+    180deg,
+    rgba(90, 175, 227, 1) 0%,
+    rgba(99, 198, 224, 1) 100%
+  );
+}
+.operator4 {
+  background: linear-gradient(
+    180deg,
+    rgba(99, 198, 224, 1) 0%,
+    rgba(99, 198, 224, 1) 100%
+  );
+}
+.operator5 {
+  background: linear-gradient(
+    180deg,
+    rgba(99, 198, 224, 1) 0%,
+    rgba(99, 198, 224, 1) 100%
+  );
+}
+.operator1:hover,
+.operator2:hover,
+.operator3:hover,
+.operator4:hover,
+.operator5:hover {
+  filter: brightness(90%);
+  -webkit-filter: brightness(90%);
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* gap: 10px; */
+  grid-auto-rows: minmax(40px, auto);
+}
+#clear-btn {
+  color: #5fabe0;
+}
+
+@media screen and (max-width: 600px) {
+  .calculator {
+    width: 95%;
+  }
+}
