@@ -4,6 +4,16 @@ const clearBtn = document.querySelector('#clear-btn');
 const backSpace = document.querySelector('.fa-backspace');
 const calculatorSelected = document.querySelector('.calculator-selected');
 
+// Calculator first and second values depending on operator ;
+const calculator = {
+  '/': (firstNumber, secondNumber) => firstNumber / secondNumber,
+  '*': (firstNumber, secondNumber) => firstNumber * secondNumber,
+  '+': (firstNumber, secondNumber) => firstNumber + secondNumber,
+  '-': (firstNumber, secondNumber) => firstNumber - secondNumber,
+  '%': (firstNumber, secondNumber) => firstNumber % secondNumber,
+  '=': (firstNumber, secondNumber) => secondNumber,
+};
+
 let firstValue = 0;
 let operatorValue = '';
 let awaitingNextValue = false;
@@ -43,15 +53,6 @@ function addDecimal() {
     calculatorDisplay.textContent = `${calculatorDisplay.textContent}.`;
   }
 }
-
-// Calculator first and second values depending on operator ;
-const calculator = {
-  '/': (firstNumber, secondNumber) => firstNumber / secondNumber,
-  '*': (firstNumber, secondNumber) => firstNumber * secondNumber,
-  '+': (firstNumber, secondNumber) => firstNumber + secondNumber,
-  '-': (firstNumber, secondNumber) => firstNumber - secondNumber,
-  '=': (firstNumber, secondNumber) => secondNumber,
-};
 
 function useOperator(operator) {
   const currentValue = Number(calculatorDisplay.textContent);
@@ -99,17 +100,6 @@ function useOperator(operator) {
   operatorValue = operator;
 }
 
-// Add Event Listeners for numbers, operators, decimal buttons
-inputBtns.forEach(inputBtn => {
-  if (inputBtn.classList.length === 0) {
-    inputBtn.addEventListener('click', () => sendNumberValue(inputBtn.value));
-  } else if (inputBtn.classList.contains('operator')) {
-    inputBtn.addEventListener('click', () => useOperator(inputBtn.value));
-  } else if (inputBtn.classList.contains('decimal')) {
-    inputBtn.addEventListener('click', () => addDecimal());
-  }
-});
-
 // Reset all values, Display
 function resetAll() {
   firstValue = 0;
@@ -134,6 +124,17 @@ function deleteBackSpace() {
     );
   }
 }
+
+// Add Event Listeners for numbers, operators, decimal buttons
+inputBtns.forEach(inputBtn => {
+  if (inputBtn.classList.length === 0) {
+    inputBtn.addEventListener('click', () => sendNumberValue(inputBtn.value));
+  } else if (inputBtn.classList.contains('operator')) {
+    inputBtn.addEventListener('click', () => useOperator(inputBtn.value));
+  } else if (inputBtn.classList.contains('decimal')) {
+    inputBtn.addEventListener('click', () => addDecimal());
+  }
+});
 
 // Event Listener
 clearBtn.addEventListener('click', resetAll);
