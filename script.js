@@ -10,7 +10,6 @@ let awaitingNextValue = false;
 let secondOperation = '';
 let middleOperation = '';
 let lastOperation = '';
-let displayValueOperation = '';
 
 function sendNumberValue(number) {
   //Replace Current display value if first value is entered
@@ -23,11 +22,15 @@ function sendNumberValue(number) {
     // calculatorDisplay.textContent = displayValue === '0' ? number : displayValue + number;
     if (displayValue === '0') {
       calculatorDisplay.textContent = number;
-      //   secondOperation = number;
+      secondOperation = number;
     } else {
       calculatorDisplay.textContent = displayValue + number;
-      secondOperation = displayValue + number;
-      //   displayValueOperation = displayValue + number;
+      // first display show in second value
+      if (firstValue === 0) {
+        secondOperation = displayValue + number;
+      } else {
+        secondOperation = firstValue;
+      }
     }
   }
 }
@@ -90,7 +93,6 @@ function useOperator(operator) {
   const currentOperationValue =
     secondOperation + ' ' + operatorValue + ' ' + lastOperation;
   calculatorSelected.textContent = currentOperationValue;
-  console.log('secondOperation change', secondOperation);
 
   // Ready for Next Value, store operator
   awaitingNextValue = true;
