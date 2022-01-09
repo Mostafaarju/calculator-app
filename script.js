@@ -1,5 +1,5 @@
 const calculatorDisplay = document.querySelector('h1');
-const inputBtns = document.querySelectorAll('button');
+const inputButtons = document.querySelectorAll('button');
 const clearBtn = document.querySelector('#clear-btn');
 const backSpace = document.querySelector('.fa-backspace');
 const calculatorSelected = document.querySelector('.calculator-selected');
@@ -17,9 +17,9 @@ const calculator = {
 let firstValue = 0;
 let operatorValue = '';
 let awaitingNextValue = false;
-let secondOperation = '';
-let middleOperation = '';
-let lastOperation = '';
+let secondDisplayOperation = '';
+let middleDisplayOperation = '';
+let lastDisplayOperation = '';
 
 function sendNumberValue(number) {
   //Replace Current display value if first value is entered
@@ -29,19 +29,8 @@ function sendNumberValue(number) {
   } else {
     // if current display value is 0, replace it, if not add number;
     const displayValue = calculatorDisplay.textContent;
-    // calculatorDisplay.textContent = displayValue === '0' ? number : displayValue + number;
-    if (displayValue === '0') {
-      calculatorDisplay.textContent = number;
-      secondOperation = number;
-    } else {
-      calculatorDisplay.textContent = displayValue + number;
-      // first display show in second value
-      if (firstValue === 0) {
-        secondOperation = displayValue + number;
-      } else {
-        secondOperation = firstValue;
-      }
-    }
+    calculatorDisplay.textContent =
+      displayValue === '0' ? number : displayValue + number;
   }
 }
 
@@ -59,18 +48,6 @@ function useOperator(operator) {
   // Prevent Multiple operators
   if (operatorValue && awaitingNextValue) {
     operatorValue = operator;
-
-    //   Show current Display to second display
-    if (awaitingNextValue) {
-      secondOperation = '';
-      lastOperation = '';
-      secondOperation = firstValue;
-
-      if (secondOperation === firstValue) {
-        secondOperation = middleOperation;
-      }
-    }
-
     return;
   }
 
@@ -79,22 +56,23 @@ function useOperator(operator) {
     firstValue = currentValue;
   } else {
     const calculation = calculator[operatorValue](firstValue, currentValue);
+    // Assign value for Second Display
+    secondDisplayOperation = firstValue;
+    middleDisplayOperation = operatorValue;
+    lastDisplayOperation = currentValue;
+
     calculatorDisplay.textContent = calculation;
-    lastOperation += currentValue;
 
     firstValue = calculation;
-
-    //   Show current Display to second display in condition
-    if (calculation) {
-      middleOperation = calculation;
-    }
   }
 
-  // second Display show with operator
-  const currentOperationValue =
-    secondOperation + ' ' + operatorValue + ' ' + lastOperation;
-  calculatorSelected.textContent = currentOperationValue;
-
+  // declare
+  calculatorSelected.textContent =
+    secondDisplayOperation +
+    ' ' +
+    middleDisplayOperation +
+    ' ' +
+    lastDisplayOperation;
   // Ready for Next Value, store operator
   awaitingNextValue = true;
   operatorValue = operator;
@@ -105,9 +83,9 @@ function resetAll() {
   firstValue = 0;
   operatorValue = '';
   awaitingNextValue = false;
-  secondOperation = '';
-  middleOperation = '';
-  lastOperation = '';
+  secondDisplayOperation = '';
+  middleDisplayOperation = '';
+  lastDisplayOperation = '';
   calculatorDisplay.textContent = '0';
   calculatorSelected.textContent = '';
 }
@@ -126,7 +104,7 @@ function deleteBackSpace() {
 }
 
 // Add Event Listeners for numbers, operators, decimal buttons
-inputBtns.forEach(inputBtn => {
+inputButtons.forEach(inputBtn => {
   if (inputBtn.classList.length === 0) {
     inputBtn.addEventListener('click', () => sendNumberValue(inputBtn.value));
   } else if (inputBtn.classList.contains('operator')) {
